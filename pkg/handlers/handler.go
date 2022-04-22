@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"fmt"
-	"io/ioutil"
 	"net/http"
 	"web-application-template/pkg/config"
 	"web-application-template/pkg/models"
@@ -32,35 +30,12 @@ func NewHandlers(r *Repository) {
 // Home is the handler for the home page
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 
-	data := make(map[string]interface{})
-
-	resp, err := http.Get("http://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	text, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	data["apiReponse"] = string(text)
-
-	render.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{
-		Data: data,
-	})
+	render.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{})
 }
 
 // About is the handler for the about page
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	// perform some logic
-	stringMap := make(map[string]string)
-	stringMap["test"] = "Hello, again"
 
 	// send data to the template
-	render.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{
-		StringMap: stringMap,
-	})
+	render.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{})
 }
